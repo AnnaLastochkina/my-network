@@ -2,6 +2,7 @@ import React from 'react';
 import s from './myposts.module.css'
 import Post from "./Post/post";
 
+
 const MyPosts = () => {
     return (
         <div className={s.posts} >

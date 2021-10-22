@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './post.module.css'
 
-type typeOfPost = string
+type typeOfPost = {message: string}
 const Post = (props:typeOfPost) => {
     return (
 
