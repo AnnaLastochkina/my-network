@@ -1,3 +1,5 @@
+import {rerenderEntireState} from "../render";
+
 export type DialogsType = {
     id: number
     name: string
@@ -50,6 +52,16 @@ let state: StateType = {
             {id: 5, name: 'Valera'},
         ]
     }
+}
+export const addPost = (postmessage:string) => {
+
+    let newPost = {
+        id: 5,
+        message: postmessage,
+        likesCount: 0
+    };
+    state.profilePage.posts.push(newPost);
+    rerenderEntireState(state)
 }
 
 export default state;
