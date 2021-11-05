@@ -10,9 +10,10 @@ import {StateType} from "./Redux/state";
 
 export type appPropsType = {
     state: StateType
-    addPost: (postmessage:string) => void
-
+    addPost: () => void
+    updateNewPostText: (newText:string) => void
 }
+
 const App = (props:appPropsType) => {
 
     return (
@@ -25,8 +26,8 @@ const App = (props:appPropsType) => {
                            render= { () => <Dialogs state = {props.state.dialogsPage}/>
                     }/>
                     <Route path = '/profile'
-                           render={ () => <Profile state = {props.state.profilePage}
-                           addPost = {props.addPost}/> } />
+                           render={ () => <Profile profilePage = {props.state.profilePage}
+                           addPost = {props.addPost} updateNewPostText = {props.updateNewPostText} /> } />
                 </div>
             </div>
 

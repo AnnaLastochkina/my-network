@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-import {addPost, StateType} from "./Redux/state";
+import {addPost, StateType, updateNewPostText} from "./Redux/state";
 
 
 
@@ -11,7 +11,7 @@ import {addPost, StateType} from "./Redux/state";
 export let rerenderEntireState = (state: StateType) => {
 ReactDOM.render(
     <React.StrictMode>
-        <App state={state} addPost = {addPost}/>
+        <App state={state} addPost = {addPost} updateNewPostText = {updateNewPostText}/>
     </React.StrictMode>, document.getElementById('root')
 );}
 
