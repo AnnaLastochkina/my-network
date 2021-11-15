@@ -1,4 +1,7 @@
-import {rerenderEntireState} from "../render";
+
+let rerenderEntireState = (state:StateType) => {
+    console.log('hey hey')
+}
 
 export type DialogsType = {
     id: number
@@ -72,4 +75,7 @@ export const updateNewPostText = (newText:string) => {
     rerenderEntireState(state)
 }
 
+export const subscribe = (observer:()=>void) => {
+    rerenderEntireState = observer;
+}
 export default state;
