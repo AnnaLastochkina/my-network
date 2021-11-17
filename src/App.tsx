@@ -10,12 +10,12 @@ import {StateType} from "./Redux/state";
 
 export type appPropsType = {
     state: StateType
-    addPost: () => void
+    addPost: (newPostText: string) => void
     updateNewPostText: (newText:string) => void
 }
 
 const App = (props:appPropsType) => {
-
+    console.log('props: ', props)
     return (
         <BrowserRouter>
             <div className='app-wrapper'>

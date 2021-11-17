@@ -1,11 +1,11 @@
-import React, {ChangeEvent, ChangeEventHandler} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './myposts.module.css'
 import Post from "./Post/post";
-import {PostsDataType, updateNewPostText} from "../../../Redux/state";
+import {PostsDataType} from "../../../Redux/state";
 
 type myPostsType = {
     posts: Array<PostsDataType>
-    addPost: () => void
+    addPost: (newPostText: string) => void
     newPostText: string
     updateNewPostText:(newText:string) => void
 }
@@ -22,7 +22,7 @@ const MyPosts = (props: myPostsType) => {
     let postsElements = props.posts.map (p => <Post id={p.id} message= {p.message} likesCount= {p.likesCount}/>)
     let addPost = () => {
         if( newPostElement.current ) {
-            props.addPost()
+            props.addPost(newPostElement.current.value)
         }
     }
     return (
