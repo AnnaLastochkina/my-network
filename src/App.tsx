@@ -5,17 +5,15 @@ import Navbar from "./Components/Nav/Nav";
 import Profile from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {StateType} from "./Redux/state";
+import {AddPostActionType, ChangeNewTextActionType, StateType, storeType} from "./Redux/state";
 
 
 export type appPropsType = {
     state: StateType
-    addPost: (newPostText: string) => void
-    updateNewPostText: (newText:string) => void
+    dispatch:(action:AddPostActionType | ChangeNewTextActionType)=>void
 }
 
 const App = (props:appPropsType) => {
-    console.log('props: ', props)
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -27,7 +25,7 @@ const App = (props:appPropsType) => {
                     }/>
                     <Route path = '/profile'
                            render={ () => <Profile profilePage = {props.state.profilePage}
-                           addPost = {props.addPost} updateNewPostText = {props.updateNewPostText} /> } />
+                           dispatch = {props.dispatch} /> } />
                 </div>
             </div>
 

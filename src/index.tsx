@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import store, {storeType} from "./Redux/state";
+import store, {StateType, storeType} from "./Redux/state";
 import App from "./App"
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
@@ -10,19 +10,18 @@ import {BrowserRouter} from "react-router-dom";
 
 
 
-let rerenderEntireTree = (state: storeType) => {
-    console.log('state: ', state)
+let rerenderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state.getState()}
-                 addPost={state.addPost.bind(state)}
-                 updateNewPostText={state.updateNewPostText.bind(state)}
-            />
+            <App state={state}
+                 dispatch={store.dispatch.bind(store)}/>
+
         </BrowserRouter>, document.getElementById('root')
     );}
 
-rerenderEntireTree(store)
-store.subscribe(()=>rerenderEntireTree(store))
+rerenderEntireTree(store.getState())
+
+store.subscribe(()=>rerenderEntireTree(store.getState()))
 
 
 
