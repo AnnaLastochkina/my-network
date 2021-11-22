@@ -1,30 +1,55 @@
-import React from 'react';
+import React, {ChangeEvent, ChangeEventHandler} from 'react';
 import s from './dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {DialogsPageType, StateType} from "../../Redux/state";
+import {sendMessageCreator,
+    storeType,
+    updateNewMessageBodyCreator
+} from "../../Redux/state";
 
 
 type DialogType = {
-    state: DialogsPageType
+    store: storeType
 }
 
-const Dialogs = (props:DialogType) => {
+const Dialogs = (props: DialogType) => {
+    let state = props.store.getState().dialogsPage
 
-    let dialogElements = props.state.dialogs.map ( (dialog) =>
+    let dialogElements = state.dialogs.map((dialog) =>
         <DialogItem name={dialog.name}
-                    id={dialog.id}/> )
+                    id={dialog.id}/>)
 
-    let messagesElements = props.state.messages.map ((message) =>
+    let messagesElements = state.messages.map((message) =>
         <Message message={message.message}/>)
+    let newMessageBody = state.newMessageBody
 
-    return(
+
+    let onSendMessageClick = () => {
+        props.store.dispatch(sendMessageCreator())
+    }
+
+    let onNewMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+       let body = e.currentTarget.value
+
+        props.store.dispatch(updateNewMessageBodyCreator(body))
+    }
+    return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                { dialogElements }
+                {dialogElements}
             </div>
             <div className={s.messages}>
-                { messagesElements }
+                <div> {messagesElements}</div>
+                <div>
+                    <div><textarea value={newMessageBody}
+                                   placeholder='Enter your message'
+                                   onChange={onNewMessageChange}
+                    /></div>
+                    <div>
+                        <button onClick={onSendMessageClick}></button>
+                    </div>
+
+                </div>
             </div>
         </div>
     )

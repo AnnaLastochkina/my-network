@@ -2,9 +2,8 @@ import React from 'react';
 import s from './myposts.module.css'
 import Post from "./Post/post";
 import {
+    ActionsTypes,
     addPostActionCreator,
-    AddPostActionType,
-    ChangeNewTextActionType,
     PostsDataType,
     updateNewPostTextActionCreator
 } from "../../../Redux/state";
@@ -12,7 +11,7 @@ import {
 type myPostsType = {
     posts: Array<PostsDataType>
     newPostText: string
-    dispatch:(action:AddPostActionType | ChangeNewTextActionType)=>void
+    dispatch:(action:ActionsTypes)=>void
 }
 
 
@@ -21,7 +20,7 @@ const MyPosts = (props: myPostsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
     let postsElements = props.posts.map (p => <Post id={p.id} message= {p.message} likesCount= {p.likesCount}/>)
     let addPost = () => {
-            props.dispatch(addPostActionCreator())
+            props.dispatch(addPostActionCreator(props.newPostText))
     }
     let onPostChange = () => {
         let text = newPostElement.current!.value
