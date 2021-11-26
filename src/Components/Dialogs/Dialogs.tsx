@@ -2,13 +2,14 @@ import React, {ChangeEvent, ChangeEventHandler} from 'react';
 import s from './dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {storeType} from "../../Redux/state";
+import {storeType} from "../../Redux/store";
 import {sendMessageCreator,
     updateNewMessageBodyCreator} from "../../Redux/Dialogs-reducer";
+import {reduxStoreType} from "../../Redux/redux-store";
 
 
 type DialogType = {
-    store: storeType
+    store: reduxStoreType
 }
 
 const Dialogs = (props: DialogType) => {
@@ -45,7 +46,7 @@ const Dialogs = (props: DialogType) => {
                                    onChange={onNewMessageChange}
                     /></div>
                     <div>
-                        <button onClick={onSendMessageClick}></button>
+                        <button onClick={onSendMessageClick}>Send</button>
                     </div>
 
                 </div>

@@ -6,7 +6,7 @@ import {
 
     PostsDataType,
 
-} from "../../../Redux/state";
+} from "../../../Redux/store";
 
 import {addPostActionCreator,updateNewPostTextActionCreator } from '../../../Redux/Profile-reducer'
 type myPostsType = {
@@ -25,7 +25,6 @@ const MyPosts = (props: myPostsType) => {
     }
     let onPostChange = () => {
         let text = newPostElement.current!.value
-        //props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText: text})
         props.dispatch(updateNewPostTextActionCreator(text))
     }
     return (

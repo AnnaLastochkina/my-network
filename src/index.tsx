@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import store, {StateType} from "./Redux/state";
+import store, {ReduxStateType} from "./Redux/redux-store";
 import App from "./App"
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
@@ -10,12 +10,13 @@ import {BrowserRouter} from "react-router-dom";
 
 
 
-let rerenderEntireTree = (state: StateType) => {
+let rerenderEntireTree = (state: ReduxStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App
                  dispatch={store.dispatch.bind(store)}
-            store={store}
+                 store={store}
+                 state={state}
             />
 
         </BrowserRouter>, document.getElementById('root')

@@ -4,13 +4,15 @@ import Header from "./Components/Header/Header";
 import Navbar from "./Components/Nav/Nav";
 import Profile from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
-import {ActionsTypes, storeType} from "./Redux/state";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {ActionsTypes} from "./Redux/store";
+import {ReduxStateType, reduxStoreType} from "./Redux/redux-store";
 
 
 export type appPropsType = {
-    store: storeType
+    store: reduxStoreType
     dispatch:(action:ActionsTypes)=>void
+    state: ReduxStateType
 }
 
 const App = (props:appPropsType) => {
@@ -20,13 +22,17 @@ const App = (props:appPropsType) => {
                 <Header/>
                 <Navbar/>
                 <div className = 'app-wrapper-content'>
-                    <Route path = '/dialogs'
+                    <Switch>
+                        <Route  exact path={'/'}  render={ () => <Profile profilePage = {props.store.getState().profilePage}
+                                                                          dispatch = {props.dispatch} /> } />
+                    <Route  path = '/dialogs'
                            render= { () => <Dialogs
                            store = {props.store}/>
                     }/>
                     <Route path = '/profile'
                            render={ () => <Profile profilePage = {props.store.getState().profilePage}
                            dispatch = {props.dispatch} /> } />
+                    </Switch>
                 </div>
             </div>
 
