@@ -3,10 +3,10 @@ import './App.css';
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Nav/Nav";
 import Profile from "./Components/Profile/Profile";
-import Dialogs from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {ActionsTypes} from "./Redux/store";
 import {ReduxStateType, reduxStoreType} from "./Redux/redux-store";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
 export type appPropsType = {
@@ -23,15 +23,13 @@ const App = (props:appPropsType) => {
                 <Navbar/>
                 <div className = 'app-wrapper-content'>
                     <Switch>
-                        <Route  exact path={'/'}  render={ () => <Profile profilePage = {props.store.getState().profilePage}
-                                                                          dispatch = {props.dispatch} /> } />
+                        <Route  exact path={'/'}  render={ () => <Profile store={props.store} /> } />
                     <Route  path = '/dialogs'
-                           render= { () => <Dialogs
+                           render= { () => <DialogsContainer
                            store = {props.store}/>
                     }/>
                     <Route path = '/profile'
-                           render={ () => <Profile profilePage = {props.store.getState().profilePage}
-                           dispatch = {props.dispatch} /> } />
+                           render={ () => <Profile store = {props.store} /> } />
                     </Switch>
                 </div>
             </div>
