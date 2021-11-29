@@ -9,13 +9,13 @@ import {ReduxStateType, reduxStoreType} from "./Redux/redux-store";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
-export type appPropsType = {
+/*export type appPropsType = {
     store: reduxStoreType
     dispatch:(action:ActionsTypes)=>void
     state: ReduxStateType
-}
+}*/
 
-const App = (props:appPropsType) => {
+const App = (/*props:appPropsType*/) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -23,13 +23,12 @@ const App = (props:appPropsType) => {
                 <Navbar/>
                 <div className = 'app-wrapper-content'>
                     <Switch>
-                        <Route  exact path={'/'}  render={ () => <Profile store={props.store} /> } />
+                        <Route  exact path={'/'}  render={ () => <Profile  /> } />
                     <Route  path = '/dialogs'
-                           render= { () => <DialogsContainer
-                           store = {props.store}/>
+                           render= { () => <DialogsContainer />
                     }/>
                     <Route path = '/profile'
-                           render={ () => <Profile store = {props.store} /> } />
+                           render={ () => <Profile /> } />
                     </Switch>
                 </div>
             </div>
