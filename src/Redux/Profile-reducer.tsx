@@ -33,10 +33,8 @@ switch(action.type) {
         return state;
 }}
 
-export const addPostActionCreator = (postText:string) => ({
-
+export const addPostActionCreator = () => ({
     type:ADD_POST,
-    postText: postText
 }) as const
 
 
