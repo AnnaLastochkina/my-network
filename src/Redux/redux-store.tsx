@@ -10,12 +10,13 @@ let reducers = combineReducers({
     sidebarPage:sidebarReducer
 })
 
-
-
-
- let store = createStore(reducers)
 export type reduxStoreType = typeof store
 
 export type ReduxStateType = ReturnType<typeof reducers>
+
+
+ let store = createStore(reducers)
+
+
 
 export default store;
