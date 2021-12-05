@@ -4,9 +4,8 @@ import Header from "./Components/Header/Header";
 import Navbar from "./Components/Nav/Nav";
 import Profile from "./Components/Profile/Profile";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {ActionsTypes} from "./Redux/store";
-import {ReduxStateType, reduxStoreType} from "./Redux/redux-store";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import UsersContainer from "./Components/Users/UsersContainer";
 
 
 /*export type appPropsType = {
@@ -21,20 +20,23 @@ const App = (/*props:appPropsType*/) => {
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
-                <div className = 'app-wrapper-content'>
+                <div className='app-wrapper-content'>
                     <Switch>
-                        <Route  exact path={'/'}  render={ () => <Profile  /> } />
-                    <Route  path = '/dialogs'
-                           render= { () => <DialogsContainer />
-                    }/>
-                    <Route path = '/profile'
-                           render={ () => <Profile /> } />
+                        <Route exact path={'/'} render={() => <Profile/>}/>
+                        <Route path='/dialogs'
+                               render={() => <DialogsContainer/>
+                               }/>
+                        <Route path='/profile'
+                               render={() => <Profile/>}/>
+
+                        <Route path='/users'
+                               render={() => <UsersContainer />}/>
                     </Switch>
                 </div>
             </div>
 
         </BrowserRouter>
-                        )
+    )
 }
 
 export default App;
