@@ -1,7 +1,16 @@
 import React from "react";
 import s from "./users.module.css";
+import {UsersType} from "../../Redux/Users-reducer";
 
-let Users = (props: any) => {
+type UserPropsType = {
+    users: UsersType
+    follow: (userID:number) => void
+    unfollow: (userID:number) => void
+    setUsers: (users:UsersType) => void
+}
+
+let Users = (props: UserPropsType) => {
+
 if (props.users.length === 0) {
     props.setUsers([
         {
@@ -32,7 +41,7 @@ if (props.users.length === 0) {
 
     return <div>
         {
-            props.users.map(u => <div key={u.id}>
+            props.users.map((u) => <div key={u.id}>
         <span>
             <div>
                <img src={u.photoUrl} className={s.usersPhoto}/>
