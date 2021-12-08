@@ -3,10 +3,10 @@ import React from 'react';
 export type UserType = {
     id: number
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: {city:string, country: string}
-    photoUrl:string
+    photos: {small:string | null, large:string | null}
 }
 
 export type UsersType = Array<UserType>

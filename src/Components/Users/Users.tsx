@@ -1,50 +1,40 @@
 import React from "react";
 import s from "./users.module.css";
 import {UsersType} from "../../Redux/Users-reducer";
+import axios from 'axios';
+import userImg from '../../assets/images/userImg.png';
+
+
 
 type UserPropsType = {
     users: UsersType
     follow: (userID:number) => void
     unfollow: (userID:number) => void
-    setUsers: (users:UsersType) => void
+    setUsers: (users:UsersType[]) => void
+}
+
+
+
+export type UsersResponseType = {
+        items: UsersType[],
+        totalCount: number,
+        error: string
 }
 
 let Users = (props: UserPropsType) => {
 
-if (props.users.length === 0) {
-    props.setUsers([
-        {
-            id: 1,
-            photoUrl: 'https://www.meme-arsenal.com/memes/4d29034ab4779d515bcc93f977cf4f8f.jpg',
-            followed: false,
-            fullName: 'Dmitry',
-            status: 'I am a boss',
-            location: {city: "Minsk", country: 'Belarus'}
-        },
-        {
-            id: 1,
-            photoUrl: 'https://www.meme-arsenal.com/memes/4d29034ab4779d515bcc93f977cf4f8f.jpg',
-            followed: true,
-            fullName: 'Victor',
-            status: 'I am a helper',
-            location: {city: "Moscow", country: 'Russia'}
-        },
-        {
-            id: 1,
-            photoUrl: 'https://www.meme-arsenal.com/memes/4d29034ab4779d515bcc93f977cf4f8f.jpg',
-            followed: false,
-            fullName: 'Andrew',
-            status: 'I am a boss too',
-            location: {city: "Kiev", country: 'Ukraine'}
-        }
-    ])}
+    if (props.users.length === 0) {
+    axios.get<UsersResponseType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+        props.setUsers(response.data.items)
+        })
+    }
 
     return <div>
         {
             props.users.map((u) => <div key={u.id}>
         <span>
             <div>
-               <img src={u.photoUrl} className={s.usersPhoto}/>
+               <img src={ u.photos.small !== null ? u.photos.small : userImg} className={s.usersPhoto}/>
             </div>
             <div>
                 {u.followed
@@ -62,7 +52,7 @@ if (props.users.length === 0) {
         </span>
                 <span>
                     <span>
-                <div>{u.fullName}</div>
+                <div>{u.name}</div>
                 <div>{u.status}</div>
             </span>
                     <span>

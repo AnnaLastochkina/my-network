@@ -8,13 +8,9 @@ import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 
 
-/*export type appPropsType = {
-    store: reduxStoreType
-    dispatch:(action:ActionsTypes)=>void
-    state: ReduxStateType
-}*/
 
-const App = (/*props:appPropsType*/) => {
+
+const App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
