@@ -3,33 +3,31 @@ import s from "./users.module.css";
 import {UsersType} from "../../Redux/Users-reducer";
 import axios from 'axios';
 import userImg from '../../assets/images/userImg.png';
+import {UsersPropsType} from "./UsersContainer";
 
 
 
-type UserPropsType = {
-    users: UsersType
-    follow: (userID:number) => void
-    unfollow: (userID:number) => void
-    setUsers: (users:UsersType[]) => void
-}
+
 
 
 
 export type UsersResponseType = {
-        items: UsersType[],
+        items: UsersType,
         totalCount: number,
         error: string
 }
 
-let Users = (props: UserPropsType) => {
+let Users = (props: UsersPropsType) => {
 
-    if (props.users.length === 0) {
-    axios.get<UsersResponseType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-        props.setUsers(response.data.items)
+    let getUsers = () => { if (props.users.length === 0) {
+        axios.get<UsersResponseType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setUsers(response.data.items)
         })
-    }
+    }}
+
 
     return <div>
+        <button onClick={getUsers}>Get users</button>
         {
             props.users.map((u) => <div key={u.id}>
         <span>
@@ -56,8 +54,8 @@ let Users = (props: UserPropsType) => {
                 <div>{u.status}</div>
             </span>
                     <span>
-                <div>{u.location.country}</div>
-                <div>{u.location.city}</div>
+                <div>{u.location?.country}</div>
+                <div>{u.location?.city}</div>
             </span>
                         </span>
             </div>)
