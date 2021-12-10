@@ -7,30 +7,50 @@ import {UsersPropsType} from "./UsersContainer";
 
 
 export type UsersResponseType = {
-        items: UsersType,
-        totalCount: number,
-        error: string
+    items: UsersType,
+    totalCount: number,
+    error: string
 }
 
 
-
-class Users extends React.Component<UsersPropsType>  {
+class Users extends React.Component<UsersPropsType> {
 
 
     componentDidMount() {
-            axios.get<UsersResponseType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items)
-            })
+        axios.get<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
+    }
+    onPageChanged = (pageNumber:number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
+    }
+    render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
         }
 
-    render () {
         return <div>
-
+            <div>
+                {pages.map ((p) => {
+                    return <span className = {this.props.currentPage === p ? s.selectedPage : ''}
+                    onClick={(e)=>{this.onPageChanged(p)}}
+                    >{p}</span>}
+               )}
+            </div>
             {
                 this.props.users.map((u) => <div key={u.id}>
         <span>
             <div>
-               <img src={ u.photos.small !== null ? u.photos.small : userImg} className={s.usersPhoto}/>
+               <img src={u.photos.small !== null ? u.photos.small : userImg} className={s.usersPhoto}/>
             </div>
             <div>
                 {u.followed
