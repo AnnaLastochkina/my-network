@@ -79,18 +79,18 @@ export const usersReducer = (state = initialState, action: ActionUsersType): Ini
 }
 
 
-export const followAC = (userID:number) => ({type: FOLLOW, userID} as const)
-export type FollowACType = ReturnType<typeof followAC>
-export const unfollowAC = (userID:number) => ({type: UNFOLLOW, userID} as const )
-export type unFollowACType = ReturnType<typeof unfollowAC>
-export const setUsersAC = (users:UsersType) => ({type: SET_USERS, users} as const )
-export type SetUsersACType = ReturnType<typeof setUsersAC>
-export const SetCurrentPageAC = (currentPage:number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
-export type SetCurrentPageACType = ReturnType<typeof SetCurrentPageAC>
-export const SetUsersTotalCountAC = (totalUsersCount:number) => ({type:SET_TOTAL_USERS_COUNT, count:totalUsersCount} as const)
-export type SetUsersTotalCountACType = ReturnType<typeof SetUsersTotalCountAC>
-export const toggleIsFetchingAC = (isFetching:boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
-export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
+export const follow = (userID:number) => ({type: FOLLOW, userID} as const)
+export type FollowACType = ReturnType<typeof follow>
+export const unfollow = (userID:number) => ({type: UNFOLLOW, userID} as const )
+export type unFollowACType = ReturnType<typeof unfollow>
+export const setUsers = (users:UsersType) => ({type: SET_USERS, users} as const )
+export type SetUsersACType = ReturnType<typeof setUsers>
+export const SetCurrentPage = (currentPage:number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export type SetCurrentPageACType = ReturnType<typeof SetCurrentPage>
+export const SetUsersTotalCount = (totalUsersCount:number) => ({type:SET_TOTAL_USERS_COUNT, count:totalUsersCount} as const)
+export type SetUsersTotalCountACType = ReturnType<typeof SetUsersTotalCount>
+export const toggleIsFetching = (isFetching:boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 
 
 
