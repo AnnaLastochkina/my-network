@@ -3,6 +3,8 @@ import userImg from "../../assets/images/userImg.png";
 import React from "react";
 import {UsersType} from "../../Redux/Users-reducer";
 import { NavLink } from 'react-router-dom';
+import axios from "axios";
+import {UsersResponseType} from "./UsersContainer";
 
 type UsersPresentationPropsType = {
     totalUsersCount: number
@@ -22,6 +24,9 @@ export let Users = (props: UsersPresentationPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
+
+
 
     return <div>
         <div>
@@ -45,10 +50,33 @@ export let Users = (props: UsersPresentationPropsType) => {
             <div>
                 {u.followed
                     ? <button onClick={() => {
-                        props.unfollow(u.id)
-                    }}>Unfollow</button>
+                        axios.delete<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                             {
+                                withCredentials: true,
+                                 headers: {
+                                    'API-KEY':"204a06f3-f4cf-44c7-b104-0263b991a423"
+                                 }
+                            })
+                            .then(response => {
+                                if (response.data.resultCode === 0) {
+                                    props.unfollow(u.id)
+                                }
+                    })}}>Unfollow</button>
+
                     : <button onClick={() => {
-                        props.follow(u.id)
+                        axios.post<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                            {}, {
+                            withCredentials: true,
+                                headers: {
+                                    'API-KEY':"204a06f3-f4cf-44c7-b104-0263b991a423"
+                                }
+                        })
+                            .then(response => {
+                               if (response.data.resultCode === 0) {
+                                   props.follow(u.id)
+                               }
+                            })
+
                     }}>Follow</button>
                 }
 
