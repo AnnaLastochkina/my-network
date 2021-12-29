@@ -17,6 +17,7 @@ export type InitialStateType = {
     totalUsersCount: number
     currentPage:number
     isFetching:boolean
+    followinginProgress:number[]
 }
 
 let initialState:InitialStateType = {
@@ -24,7 +25,8 @@ let initialState:InitialStateType = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: true,
+    followinginProgress: []
 }
 
 const FOLLOW = 'FOLLOW'
@@ -33,6 +35,7 @@ const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 
 export const usersReducer = (state = initialState, action: ActionUsersType): InitialStateType => {
@@ -71,6 +74,13 @@ export const usersReducer = (state = initialState, action: ActionUsersType): Ini
         case TOGGLE_IS_FETCHING: {
                 return {...state, isFetching: action.isFetching}
             }
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
+            return {
+                ...state,
+                followinginProgress: action.isFetching
+                    ? [...state.followinginProgress, action.userID]
+                    : state.followinginProgress.filter(id => id !== action.userID)}
+        }
         default :
             return state;
     }
@@ -91,10 +101,13 @@ export const SetUsersTotalCount = (totalUsersCount:number) => ({type:SET_TOTAL_U
 export type SetUsersTotalCountACType = ReturnType<typeof SetUsersTotalCount>
 export const toggleIsFetching = (isFetching:boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
 export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
+export const toggleFollowingProgress = (isFetching:boolean, userID: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userID} as const)
+export type toggleFollowingProgressACType = ReturnType<typeof toggleFollowingProgress>
 
 
 
-type ActionUsersType = FollowACType | unFollowACType | SetUsersACType | SetCurrentPageACType | SetUsersTotalCountACType | toggleIsFetchingACType
+type ActionUsersType = FollowACType | unFollowACType | SetUsersACType | SetCurrentPageACType | SetUsersTotalCountACType |
+    toggleIsFetchingACType| toggleFollowingProgressACType
 
 
 
