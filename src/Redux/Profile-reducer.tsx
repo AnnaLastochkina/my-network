@@ -1,4 +1,6 @@
 import {ActionsTypes, ProfilePageType} from "./store";
+import {Dispatch} from "redux";
+import {usersAPI} from "../API/API";
 
 
 const ADD_POST = 'ADD-POST';
@@ -74,5 +76,13 @@ export const updateNewPostTextActionCreator = (newText:string) => ({
     type:UPDATE_NEW_POST_TEXT,
     newText: newText
 }) as const
+
 export const setUserProfile = (profile:ProfileResponsePropsType) => ({type:SET_USER_PROFILE, profile}) as const
+
+export const getUserProfile = (userId:string) => (dispatch:Dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+       dispatch(setUserProfile(response.data))
+    })
+}
+
 export default profileReducer
