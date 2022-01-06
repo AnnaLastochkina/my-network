@@ -49,7 +49,7 @@ export type setUserDataACType = ReturnType<typeof setAuthUserData>
 
 export const getAuthUserData = () => (dispatch:Dispatch) => {
     AuthAPI.me().then(response => {
-        if (response.data.data.resultCode === 0) {
+        if (response.data.resultCode === 0) {
             let {id, email, login} = response.data.data
             dispatch(setAuthUserData(id, email, login))
         }

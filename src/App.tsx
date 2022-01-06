@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./Components/Nav/Nav";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
@@ -10,30 +10,30 @@ import LoginPage from "./Components/Login/Login";
 
 const App = () => {
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Switch>
-                        <Route exact path={'/'} render={() => <ProfileContainer />}/>
+                    <Routes>
+                        <Route path={'/'} element={ <ProfileContainer />}/>
                         <Route path='/dialogs'
-                               render={() => <DialogsContainer/>
+                               element={ <DialogsContainer/>
                                }/>
-                        <Route path='/profile/:userId?'
-                               render={() => <ProfileContainer />}/>
+                        <Route path='/profile/:userId'
+                               element={ <ProfileContainer />}/>
+                        <Route path='/profile'
+                               element={ <ProfileContainer />}/>
 
                         <Route path='/users'
-                               render={() => <UsersContainer />}/>
+                               element={<UsersContainer />}/>
 
                         <Route path='/login'
-                               render={() => <LoginPage />}/>
+                               element={ <LoginPage />}/>
 
-                    </Switch>
+                    </Routes>
                 </div>
             </div>
 
-        </BrowserRouter>
     )
 }
 
